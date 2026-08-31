@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Vivid Vines THC — VVVTHC | Indoor Exotics</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --deep:#071209;--forest:#0d2410;--moss:#1a4a22;--vine:#2d8c3e;--leaf:#4eca61;
+  --gold:#c9a84c;--gold-light:#f0d07a;--cream:#f5efe0;--rose:#d4727a;--lavender:#9b7ec8;--sun:#e8b84b;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--deep);color:var(--cream);font-family:'Lora',serif;overflow-x:hidden;}
+
+/* AGE GATE */
+#agegate{position:fixed;inset:0;z-index:10000;background:var(--deep);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.8rem;text-align:center;padding:2rem;}
+.ag-logo{font-family:'Cinzel',serif;font-size:2rem;color:var(--gold-light);letter-spacing:.25em;}
+.ag-logo span{color:var(--leaf);}
+.ag-title{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,3rem);color:#fff;}
+.ag-sub{font-size:.8rem;letter-spacing:.15em;color:rgba(245,239,224,.4);text-transform:uppercase;}
+.ag-btns{display:flex;gap:1rem;margin-top:.5rem;}
+.ag-yes,.ag-no{font-family:'Cinzel',serif;font-size:.82rem;letter-spacing:.2em;padding:.85rem 2.5rem;border:1.5px solid;cursor:pointer;transition:all .3s;text-transform:uppercase;}
+.ag-yes{background:var(--vine);border-color:var(--leaf);color:#fff;}
+.ag-yes:hover{background:var(--leaf);color:var(--deep);}
+.ag-no{background:transparent;border-color:rgba(245,239,224,.15);color:rgba(245,239,224,.3);}
+.ag-warn{font-size:.65rem;color:rgba(245,239,224,.25);max-width:420px;line-height:1.7;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;background:linear-gradient(to bottom,rgba(7,18,9,.97),rgba(7,18,9,.7) 80%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid rgba(201,168,76,.1);}
+.nav-logo{font-family:'Cinzel',serif;font-size:1.25rem;letter-spacing:.2em;color:var(--gold-light);text-decoration:none;}
+.nav-logo span{color:var(--leaf);}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{color:rgba(245,239,224,.7);text-decoration:none;font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;transition:color .3s;}
+.nav-links a:hover{color:var(--gold-light);}
+.nav-cart{position:relative;background:var(--gold);color:var(--deep);border:none;padding:.55rem 1.5rem;font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;transition:background .3s;}
+.nav-cart:hover{background:var(--gold-light);}
+.cart-count{position:absolute;top:-8px;right:-8px;width:20px;height:20px;border-radius:50%;background:var(--leaf);color:var(--deep);font-size:.6rem;font-family:'Cinzel',serif;font-weight:700;display:none;align-items:center;justify-content:center;}
+
+/* HERO */
+#hero{position:relative;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;background:radial-gradient(ellipse at 50% 100%,#1a4a22 0%,#0d2410 40%,var(--deep) 75%);}
+.hero-bs{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:1000px;height:100%;pointer-events:none;z-index:1;}
+.hero-bs svg{width:100%;height:100%;}
+.sp{stroke-dasharray:4000;stroke-dashoffset:4000;animation:grow 4s cubic-bezier(.25,.46,.45,.94) .3s forwards;}
+@keyframes grow{to{stroke-dashoffset:0;}}
+.lf{opacity:0;animation:lfpop .6s ease forwards;}
+@keyframes lfpop{0%{opacity:0;transform:scale(.3) rotate(-15deg);}70%{opacity:1;transform:scale(1.08);}100%{opacity:.92;transform:scale(1);}}
+.hero-content{position:relative;z-index:10;text-align:center;}
+.hero-eyebrow{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.4em;color:var(--gold);text-transform:uppercase;opacity:0;animation:fadeUp .9s ease .5s forwards;}
+.hero-h1{font-family:'Playfair Display',serif;font-size:clamp(4.5rem,10vw,9rem);font-weight:900;line-height:.9;color:#fff;text-shadow:0 0 80px rgba(78,202,97,.25),0 4px 40px rgba(0,0,0,.7);opacity:0;animation:fadeUp 1s ease .7s forwards;}
+.hero-h1 em{font-style:italic;color:var(--leaf);display:block;}
+.hero-sub{font-size:.9rem;letter-spacing:.25em;color:var(--gold-light);text-transform:uppercase;margin-top:1rem;opacity:0;animation:fadeUp 1s ease .9s forwards;}
+.hero-badge{display:inline-flex;gap:1.5rem;margin-top:2.5rem;opacity:0;animation:fadeUp 1s ease 1.1s forwards;}
+.hbtn{padding:.75rem 2.2rem;font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:all .3s;}
+.hbtn-primary{background:var(--vine);color:#fff;border:1.5px solid var(--leaf);}
+.hbtn-primary:hover{background:var(--leaf);color:var(--deep);}
+.hbtn-secondary{background:transparent;color:var(--gold);border:1.5px solid var(--gold);}
+.hbtn-secondary:hover{background:var(--gold);color:var(--deep);}
+.scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:10;display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:0;animation:fadeIn 1s ease 2s forwards;}
+.scroll-hint span{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;}
+.scroll-line{width:1px;height:45px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scpulse 1.5s ease-in-out infinite;}
+@keyframes scpulse{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{to{opacity:1}}
+
+/* MARQUEE */
+.marquee{background:var(--gold);padding:.7rem 0;overflow:hidden;display:flex;}
+.minner{display:flex;gap:2.5rem;white-space:nowrap;animation:mscroll 24s linear infinite;}
+.minner span{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.22em;color:var(--deep);text-transform:uppercase;}
+@keyframes mscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* SMOKE POINTS BANNER */
+.sp-banner{
+  background:linear-gradient(135deg,#0d2410 0%,#1a3d18 40%,#0d2410 100%);
+  border-top:1px solid rgba(201,168,76,.15);
+  border-bottom:1px solid rgba(201,168,76,.15);
+  padding:3.5rem 2rem;
+  position:relative;overflow:hidden;
+}
+.sp-banner::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 50%,rgba(78,202,97,.07) 0%,transparent 65%);
+}
+.sp-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:3rem;position:relative;z-index:1;flex-wrap:wrap;}
+.sp-left{display:flex;align-items:center;gap:1.5rem;}
+.sp-coin{
+  width:72px;height:72px;border-radius:50%;flex-shrink:0;
+  background:radial-gradient(circle at 38% 38%,var(--gold-light),var(--gold),#8a6a20);
+  border:3px solid rgba(240,208,122,.3);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  box-shadow:0 0 30px rgba(201,168,76,.3);
+  animation:coinGlow 2.5s ease-in-out infinite;
+  font-family:'Cinzel',serif;font-weight:700;
+}
+@keyframes coinGlow{0%,100%{box-shadow:0 0 20px rgba(201,168,76,.25)}50%{box-shadow:0 0 50px rgba(201,168,76,.55)}}
+.sp-coin-symbol{font-size:1.5rem;color:var(--deep);line-height:1;}
+.sp-coin-label{font-size:.4rem;letter-spacing:.12em;color:var(--deep);opacity:.8;text-transform:uppercase;margin-top:.1rem;}
+.sp-text h3{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--white);margin-bottom:.3rem;}
+.sp-text h3 em{font-style:italic;color:var(--gold-light);}
+.sp-text p{font-size:.82rem;color:rgba(245,239,224,.6);line-height:1.6;}
+.sp-pillars{display:flex;gap:1.5rem;flex-wrap:wrap;}
+.sp-pillar{
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  padding:1.2rem 1.8rem;
+  background:rgba(0,0,0,.25);
+  border:1px solid rgba(201,168,76,.15);
+  border-radius:4px;
+  min-width:130px;text-align:center;
+  transition:border-color .3s,background .3s;
+}
+.sp-pillar:hover{border-color:rgba(201,168,76,.4);background:rgba(201,168,76,.05);}
+.sp-pillar-icon{font-size:1.5rem;}
+.sp-pillar-val{font-family:'Cinzel',serif;font-size:1.2rem;font-weight:700;color:var(--gold-light);}
+.sp-pillar-lbl{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,239,224,.4);}
+.sp-verified-badge{
+  display:inline-flex;align-items:center;gap:.5rem;margin-top:.8rem;
+  padding:.35rem 1rem;
+  background:rgba(78,202,97,.1);border:1px solid rgba(78,202,97,.3);
+  border-radius:20px;
+  font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.15em;
+  color:var(--leaf);text-transform:uppercase;
+}
+.sp-verified-badge::before{content:'✓';font-weight:700;}
+
+.prod-points{font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.12em;color:var(--leaf);display:flex;align-items:center;gap:.3rem;margin-top:.3rem;opacity:.8;}
+.prod-points::before{content:'🔥';}
+
+/* SHOP */
+#shop{padding:6rem 2rem;}
+.shop-inner{max-width:1300px;margin:0 auto;}
+.shop-header{text-align:center;margin-bottom:4rem;}
+.sec-label{font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.38em;color:var(--gold);text-transform:uppercase;margin-bottom:1rem;display:block;}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,5vw,3.8rem);font-weight:900;color:#fff;line-height:1.05;}
+.sec-title em{color:var(--leaf);font-style:italic;}
+.sec-desc{color:rgba(245,239,224,.5);font-size:.9rem;margin-top:1rem;max-width:540px;margin-left:auto;margin-right:auto;line-height:1.7;}
+
+/* TABS */
+.tab-wrap{display:flex;justify-content:center;margin-bottom:3.5rem;}
+.tab-btn{padding:1rem 3.5rem;font-family:'Cinzel',serif;font-size:.85rem;letter-spacing:.22em;text-transform:uppercase;border:1.5px solid rgba(201,168,76,.3);background:transparent;color:rgba(245,239,224,.4);cursor:pointer;transition:all .35s;}
+.tab-btn:first-child{border-right:none;}
+.tab-btn.active{background:var(--gold);color:var(--deep);border-color:var(--gold);font-weight:700;}
+.tab-badge{display:inline-block;margin-left:.6rem;padding:.1rem .5rem;font-size:.55rem;letter-spacing:.1em;border-radius:20px;background:rgba(78,202,97,.2);color:var(--leaf);vertical-align:middle;}
+.tab-btn.active .tab-badge{background:rgba(7,18,9,.2);color:var(--deep);}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+/* PRODUCT GRID */
+.prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;}
+
+/* PRODUCT CARD */
+.prod-card{position:relative;border-radius:6px;overflow:hidden;cursor:pointer;transition:transform .4s,box-shadow .4s;background:var(--forest);}
+.prod-card:hover{transform:translateY(-10px);box-shadow:0 30px 80px rgba(0,0,0,.6);}
+
+/* Strain color placeholders */
+.pip{width:100%;height:300px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.8rem;position:relative;overflow:hidden;}
+.pip-green{background:linear-gradient(145deg,#071a08,#1a4a22,#0d2410);}
+.pip-gold{background:linear-gradient(145deg,#1f1600,#4a3a08,#1a1000);}
+.pip-rose{background:linear-gradient(145deg,#200b10,#4a1828,#150609);}
+.pip-glow{position:absolute;inset:0;background-image:radial-gradient(circle at 20% 20%,rgba(78,202,97,.15) 0%,transparent 45%),radial-gradient(circle at 80% 75%,rgba(201,168,76,.1) 0%,transparent 40%);}
+.pip-inner{position:relative;z-index:2;text-align:center;padding:1.5rem;}
+.pip-brand-tag{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;margin-bottom:.5rem;}
+.pip-strain-name{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:900;color:#fff;line-height:1.1;margin-bottom:.7rem;}
+.pip-cannabinoid-badge{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.2em;padding:.3rem .8rem;border:1px solid;display:inline-block;}
+.thca-badge{border-color:var(--leaf);color:var(--leaf);}
+.thcp-badge{border-color:var(--gold);color:var(--gold);}
+.pip-bg-text{position:absolute;font-size:7rem;opacity:.05;font-family:'Playfair Display',serif;font-style:italic;bottom:-15px;right:5px;color:#fff;line-height:1;}
+
+.prod-info{padding:1.4rem 1.6rem 1.8rem;}
+.prod-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem;}
+.type-tag{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;padding:.25rem .7rem;border-radius:2px;}
+.ts{background:rgba(78,202,97,.12);color:var(--leaf);border:1px solid rgba(78,202,97,.25);}
+.th{background:rgba(232,184,75,.1);color:var(--sun);border:1px solid rgba(232,184,75,.25);}
+.ti{background:rgba(155,126,200,.12);color:var(--lavender);border:1px solid rgba(155,126,200,.25);}
+.prod-cann-label{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.15em;color:rgba(245,239,224,.3);text-transform:uppercase;}
+.prod-name{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:700;color:#fff;line-height:1.1;margin-bottom:.35rem;}
+.prod-sub{font-size:.75rem;color:rgba(245,239,224,.4);letter-spacing:.06em;margin-bottom:.7rem;}
+.prod-desc{font-size:.8rem;color:rgba(245,239,224,.52);line-height:1.65;margin-bottom:1.1rem;}
+.prod-footer{display:flex;align-items:center;justify-content:space-between;}
+.prod-price{font-family:'Cinzel',serif;font-size:1.45rem;font-weight:700;color:var(--gold-light);}
+.prod-price small{font-size:.65rem;color:rgba(245,239,224,.3);display:block;letter-spacing:.1em;}
+.prod-btns{display:flex;gap:.5rem;}
+.btn-view,.btn-cart{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;padding:.55rem 1rem;border:none;cursor:pointer;transition:all .3s;}
+.btn-view{background:transparent;border:1px solid rgba(201,168,76,.25);color:var(--gold);}
+.btn-view:hover{border-color:var(--gold);background:rgba(201,168,76,.08);}
+.btn-cart{background:var(--vine);color:#fff;border:1px solid var(--vine);}
+.btn-cart:hover{background:var(--leaf);color:var(--deep);}
+.btn-cart.added{background:var(--gold);color:var(--deep);}
+
+/* MODAL */
+#moverlay{position:fixed;inset:0;z-index:800;background:rgba(0,0,0,.88);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;padding:2rem;}
+#moverlay.open{display:flex;}
+.modal{background:var(--forest);max-width:900px;width:100%;border-radius:8px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;position:relative;max-height:90vh;overflow-y:auto;border:1px solid rgba(201,168,76,.15);animation:mIn .35s ease;}
+@keyframes mIn{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
+.modal-close{position:absolute;top:1.2rem;right:1.2rem;width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,.4);border:1px solid rgba(245,239,224,.15);color:var(--cream);font-size:1.1rem;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;transition:all .3s;}
+.modal-close:hover{background:rgba(201,168,76,.2);border-color:var(--gold);}
+.modal-vis{min-height:500px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.modal-vis-glow{position:absolute;inset:0;background-image:radial-gradient(circle at 30% 30%,rgba(78,202,97,.18) 0%,transparent 55%),radial-gradient(circle at 70% 70%,rgba(201,168,76,.1) 0%,transparent 45%);}
+.modal-vis-content{position:relative;z-index:2;text-align:center;padding:3rem 2.5rem;}
+.modal-info{padding:2.5rem 2.5rem;display:flex;flex-direction:column;gap:1.1rem;}
+.modal-cann-pill{display:inline-flex;align-items:center;gap:.5rem;font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.2em;padding:.38rem 1rem;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);color:var(--gold);}
+.modal-strain-title{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:#fff;line-height:1.05;}
+.modal-tags{display:flex;gap:.6rem;flex-wrap:wrap;}
+.modal-p{font-size:.88rem;color:rgba(245,239,224,.62);line-height:1.8;}
+.modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;}
+.mgi{padding:.75rem;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.04);}
+.mgi-l{font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.2em;color:rgba(245,239,224,.3);text-transform:uppercase;margin-bottom:.3rem;}
+.mgi-v{font-family:'Playfair Display',serif;font-size:.92rem;color:#fff;}
+.modal-price-row{display:flex;align-items:center;justify-content:space-between;}
+.modal-price{font-family:'Cinzel',serif;font-size:1.9rem;color:var(--gold-light);}
+.modal-add{width:100%;padding:1rem;background:var(--vine);color:#fff;border:none;cursor:pointer;font-family:'Cinzel',serif;font-size:.82rem;letter-spacing:.2em;text-transform:uppercase;transition:all .3s;}
+.modal-add:hover{background:var(--leaf);color:var(--deep);}
+.modal-legal{font-size:.62rem;color:rgba(245,239,224,.22);line-height:1.65;}
+
+/* CART DRAWER */
+.cart-backdrop{position:fixed;inset:0;z-index:699;background:rgba(0,0,0,.5);display:none;}
+.cart-backdrop.open{display:block;}
+#cartdrawer{position:fixed;top:0;right:-420px;width:420px;height:100vh;background:var(--forest);border-left:1px solid rgba(201,168,76,.1);z-index:700;padding:2rem;overflow-y:auto;transition:right .4s cubic-bezier(.25,.46,.45,.94);display:flex;flex-direction:column;}
+#cartdrawer.open{right:0;}
+.cart-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid rgba(255,255,255,.06);}
+.cart-title{font-family:'Cinzel',serif;font-size:1rem;letter-spacing:.2em;color:var(--gold-light);}
+.cart-close-btn{background:none;border:1px solid rgba(255,255,255,.15);color:var(--cream);padding:.4rem .8rem;cursor:pointer;font-size:.78rem;transition:all .3s;}
+.cart-close-btn:hover{border-color:var(--gold);color:var(--gold);}
+.cart-items-wrap{flex:1;}
+.cart-item{display:flex;gap:1rem;padding:1rem 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.ci-dot{width:48px;height:48px;border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:.55rem;color:var(--gold);text-align:center;}
+.ci-info{flex:1;}
+.ci-name{font-family:'Playfair Display',serif;font-size:.92rem;color:#fff;}
+.ci-sub{font-size:.68rem;color:rgba(245,239,224,.35);letter-spacing:.08em;margin-top:.2rem;}
+.ci-price{font-family:'Cinzel',serif;font-size:.95rem;color:var(--gold-light);margin-top:.35rem;}
+.ci-rm{background:none;border:none;color:rgba(245,239,224,.2);cursor:pointer;font-size:.78rem;transition:color .3s;align-self:flex-start;}
+.ci-rm:hover{color:var(--rose);}
+.cart-empty-msg{text-align:center;padding:3rem 0;color:rgba(245,239,224,.28);font-size:.88rem;}
+.cart-foot{padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.06);}
+.cart-total-row{display:flex;justify-content:space-between;margin-bottom:1.5rem;}
+.ct-l{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.15em;color:rgba(245,239,224,.45);text-transform:uppercase;}
+.ct-v{font-family:'Cinzel',serif;font-size:1.3rem;color:var(--gold-light);}
+.checkout-btn{width:100%;padding:1.1rem;background:var(--gold);color:var(--deep);border:none;cursor:pointer;font-family:'Cinzel',serif;font-size:.82rem;letter-spacing:.22em;text-transform:uppercase;transition:background .3s;}
+.checkout-btn:hover{background:var(--gold-light);}
+
+/* STORY */
+#story{padding:8rem 3rem;background:linear-gradient(to bottom,var(--deep),var(--forest),var(--deep));}
+.story-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;}
+.story-vis{position:relative;height:500px;}
+.hex-wrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
+.hex{width:260px;height:260px;clip-path:polygon(50% 0%,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:radial-gradient(circle at 40% 40%,var(--moss),var(--deep));display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:2.5rem;color:var(--gold-light);letter-spacing:.1em;font-weight:700;animation:hpulse 3s ease-in-out infinite;}
+@keyframes hpulse{0%,100%{box-shadow:0 0 40px rgba(78,202,97,.18)}50%{box-shadow:0 0 80px rgba(78,202,97,.42)}}
+.sring{position:absolute;border-radius:50%;border:1px solid rgba(201,168,76,.1);top:50%;left:50%;transform:translate(-50%,-50%);animation:rpulse 4s ease-in-out infinite;}
+.sring:nth-child(1){width:300px;height:300px;}
+.sring:nth-child(2){width:400px;height:400px;animation-delay:.6s;}
+.sring:nth-child(3){width:490px;height:490px;animation-delay:1.2s;}
+@keyframes rpulse{0%,100%{opacity:.1}50%{opacity:.28}}
+.story-text p{font-size:.97rem;color:rgba(245,239,224,.68);line-height:1.9;margin-top:1.2rem;}
+.sstats{display:flex;gap:2.5rem;margin-top:2.5rem;flex-wrap:wrap;}
+.ssn{font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:900;color:var(--gold-light);line-height:1;}
+.ssl{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,239,224,.35);margin-top:.25rem;}
+
+/* FOOTER */
+footer{background:var(--deep);border-top:1px solid rgba(201,168,76,.1);padding:4rem 3rem 2rem;}
+.fg{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem;}
+.fg-b .logo{font-family:'Cinzel',serif;font-size:1.3rem;letter-spacing:.2em;color:var(--gold-light);display:block;margin-bottom:.8rem;}
+.fg-b .logo span{color:var(--leaf);}
+.fg-b p{font-size:.8rem;color:rgba(245,239,224,.35);line-height:1.7;max-width:260px;}
+.fg-c h5{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;margin-bottom:1rem;}
+.fg-c ul{list-style:none;display:flex;flex-direction:column;gap:.7rem;}
+.fg-c a{color:rgba(245,239,224,.4);font-size:.8rem;text-decoration:none;transition:color .3s;}
+.fg-c a:hover{color:var(--gold-light);}
+.fb{max-width:1200px;margin:0 auto;padding-top:1.5rem;border-top:1px solid rgba(201,168,76,.06);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+.fb p{font-size:.68rem;color:rgba(245,239,224,.22);}
+.age-badge{font-family:'Cinzel',serif;font-size:.66rem;letter-spacing:.15em;color:var(--gold);border:1px solid rgba(201,168,76,.18);padding:.32rem 1rem;}
+
+/* TOAST */
+#toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(60px);background:var(--vine);color:#fff;padding:.8rem 2rem;font-family:'Cinzel',serif;font-size:.73rem;letter-spacing:.18em;text-transform:uppercase;border-radius:2px;z-index:9000;transition:transform .3s ease;pointer-events:none;white-space:nowrap;}
+#toast.show{transform:translateX(-50%) translateY(0);}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(35px);transition:opacity .8s ease,transform .8s ease;}
+.reveal.vis{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+<div id="agegate">
+  <div><div class="ag-logo">VVV<span>THC</span></div></div>
+  <h1 class="ag-title">Are you 21 or older?</h1>
+  <p class="ag-sub">Vivid Vines THC — Indoor Exotics — VVVTHC</p>
+  <div class="ag-btns">
+    <button class="ag-yes" onclick="document.getElementById('agegate').style.display='none'">Yes, I'm 21+</button>
+    <button class="ag-no" onclick="window.location='https://google.com'">No, Exit</button>
+  </div>
+  <p class="ag-warn">By entering you confirm you are of legal age to purchase cannabis products in your state. Contains &lt;0.3% Delta-9 THC. 2018 Hemp Farm Bill Compliant. Must be 21+.</p>
+</div>
+
+<!-- CART BACKDROP -->
+<div class="cart-backdrop" id="cart-backdrop" onclick="closeCart()"></div>
+
+<!-- CART DRAWER -->
+<div id="cartdrawer">
+  <div class="cart-head">
+    <span class="cart-title">Your Order</span>
+    <button class="cart-close-btn" onclick="closeCart()">✕ Close</button>
+  </div>
+  <div class="cart-items-wrap" id="cart-items"><div class="cart-empty-msg">Your cart is empty.<br/>Add some flower.</div></div>
+  <div class="cart-foot">
+    <div class="cart-total-row"><span class="ct-l">Order Total</span><span class="ct-v" id="cart-total">$0.00</span></div>
+    <div class="cart-total-row" style="margin-bottom:1.2rem;">
+      <span class="ct-l" style="color:var(--leaf);">🔥 Smoke Points Earned</span>
+      <span class="ct-v" style="color:var(--leaf);font-size:1rem;" id="cart-points">0 pts</span>
+    </div>
+    <div style="font-size:.62rem;color:rgba(245,239,224,.25);margin-bottom:1rem;text-align:center;font-family:'Cinzel',serif;letter-spacing:.1em;">1 POINT PER $1 SPENT · SMOKE POINTS VERIFIED</div>
+    <button class="checkout-btn">Checkout →</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">VVV<span>THC</span></a>
+  <ul class="nav-links">
+    <li><a href="#shop">Shop</a></li>
+    <li><a href="#story">Our Story</a></li>
+    <li><a href="#footer">Contact</a></li>
+  </ul>
+  <button class="nav-cart" onclick="openCart()">🛒 Cart <span class="cart-count" id="cart-count">0</span></button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bs">
+    <svg viewBox="0 0 1000 900" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet">
+      <defs>
+        <linearGradient id="sg" x1="0" y1="1" x2="0" y2="0">
+          <stop offset="0%" stop-color="#1a4a22"/><stop offset="50%" stop-color="#2d8c3e"/><stop offset="100%" stop-color="#4eca61"/>
+        </linearGradient>
+        <filter id="gf"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <radialGradient id="lg1" cx="35%" cy="35%"><stop offset="0%" stop-color="#4eca61"/><stop offset="100%" stop-color="#1a4a22"/></radialGradient>
+        <radialGradient id="lg2" cx="65%" cy="35%"><stop offset="0%" stop-color="#2d8c3e"/><stop offset="100%" stop-color="#0d2410"/></radialGradient>
+      </defs>
+      <path class="sp" d="M500,900 C498,860 503,820 499,780 C495,740 485,710 490,670 C495,630 510,600 506,558 C502,516 488,486 492,444 C496,402 512,372 508,330 C504,288 490,258 494,216 C498,174 510,144 507,102 C504,60 500,20 500,20" stroke="url(#sg)" stroke-width="16" fill="none" stroke-linecap="round" filter="url(#gf)"/>
+      <path style="stroke-dasharray:250;stroke-dashoffset:250;animation:grow 1.5s ease 1s forwards;" d="M500,780 C515,758 535,738 558,718 C575,702 595,688 612,676" stroke="#2d8c3e" stroke-width="7" fill="none" stroke-linecap="round"/>
+      <path style="stroke-dasharray:250;stroke-dashoffset:250;animation:grow 1.5s ease 1.3s forwards;" d="M500,680 C484,656 462,636 440,616 C420,598 398,584 376,570" stroke="#2d8c3e" stroke-width="7" fill="none" stroke-linecap="round"/>
+      <path style="stroke-dasharray:250;stroke-dashoffset:250;animation:grow 1.5s ease 1.6s forwards;" d="M500,555 C516,530 538,510 562,490 C582,473 604,459 624,445" stroke="#2d8c3e" stroke-width="7" fill="none" stroke-linecap="round"/>
+      <path style="stroke-dasharray:250;stroke-dashoffset:250;animation:grow 1.5s ease 1.9s forwards;" d="M500,445 C480,420 456,400 432,382 C410,366 386,352 362,340" stroke="#2d8c3e" stroke-width="7" fill="none" stroke-linecap="round"/>
+      <g class="lf" style="animation-delay:.8s"><ellipse cx="570" cy="718" rx="70" ry="28" fill="url(#lg1)" transform="rotate(-35,570,718)"/></g>
+      <g class="lf" style="animation-delay:1s"><ellipse cx="415" cy="628" rx="65" ry="26" fill="url(#lg2)" transform="rotate(145,415,628)"/></g>
+      <g class="lf" style="animation-delay:1.3s"><ellipse cx="585" cy="488" rx="72" ry="30" fill="url(#lg1)" transform="rotate(-30,585,488)"/></g>
+      <g class="lf" style="animation-delay:1.5s"><ellipse cx="400" cy="390" rx="68" ry="28" fill="url(#lg2)" transform="rotate(150,400,390)"/></g>
+      <g class="lf" style="animation-delay:1.8s"><ellipse cx="550" cy="308" rx="64" ry="26" fill="url(#lg1)" transform="rotate(-40,550,308)"/></g>
+      <g class="lf" style="animation-delay:2s"><ellipse cx="440" cy="196" rx="60" ry="24" fill="url(#lg2)" transform="rotate(140,440,196)"/></g>
+      <g class="lf" style="animation-delay:2.8s">
+        <ellipse cx="482" cy="54" rx="80" ry="26" fill="url(#lg1)" transform="rotate(-14,482,54)"/>
+        <ellipse cx="520" cy="50" rx="75" ry="24" fill="url(#lg2)" transform="rotate(166,520,50)"/>
+        <path d="M500,20 C494,-12 472,-18 460,-8 C472,2 488,4 500,8 Z M500,20 C506,-12 528,-18 540,-8 C528,2 512,4 500,8 Z" fill="#4eca61" opacity=".9"/>
+        <path d="M500,20 C488,-22 460,-30 446,-18 C460,-6 482,-2 500,6 Z M500,20 C512,-22 540,-30 554,-18 C540,-6 518,-2 500,6 Z" fill="#2d8c3e" opacity=".85"/>
+        <line x1="500" y1="20" x2="500" y2="40" stroke="#2d8c3e" stroke-width="2.5"/>
+      </g>
+    </svg>
+  </div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Indoor Exotics · Est. 2024 · Hemp Compliant</p>
+    <h1 class="hero-h1">Vivid<br/><em>Vines</em></h1>
+    <p class="hero-sub">THC — Dogwalkers Pre-Roll Collection</p>
+    <div class="hero-badge">
+      <a href="#shop" class="hbtn hbtn-primary">Shop Now</a>
+      <a href="#story" class="hbtn hbtn-secondary">Our Story</a>
+    </div>
+  </div>
+  <div class="scroll-hint"><div class="scroll-line"></div><span>Explore</span></div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee"><div class="minner">
+  <span>Vivid Vines THC</span><span>✦</span><span>VVVTHC</span><span>✦</span><span>Indoor Exotics</span><span>✦</span><span>Dogwalkers</span><span>✦</span><span>Green Goddess</span><span>✦</span><span>Sunshine Express</span><span>✦</span><span>Snapdragon Drift</span><span>✦</span><span>THCA · THCP</span><span>✦</span><span>Hemp Farm Bill Compliant</span><span>✦</span>
+  <span>Vivid Vines THC</span><span>✦</span><span>VVVTHC</span><span>✦</span><span>Indoor Exotics</span><span>✦</span><span>Dogwalkers</span><span>✦</span><span>Green Goddess</span><span>✦</span><span>Sunshine Express</span><span>✦</span><span>Snapdragon Drift</span><span>✦</span><span>THCA · THCP</span><span>✦</span><span>Hemp Farm Bill Compliant</span><span>✦</span>
+</div></div>
+
+<!-- SMOKE POINTS BANNER -->
+<div class="sp-banner">
+  <div class="sp-inner">
+    <div class="sp-left">
+      <div class="sp-coin">
+        <div class="sp-coin-symbol">🔥</div>
+        <div class="sp-coin-label">Points</div>
+      </div>
+      <div class="sp-text">
+        <h3><em>Smoke Points</em> Rewards</h3>
+        <p>Every product in our collection is <strong style="color:var(--gold-light);">Smoke Points Verified</strong>.<br/>Earn 1 point for every $1 you spend — redeem for free product, discounts &amp; more.</p>
+        <div class="sp-verified-badge">Smoke Points Verified Collection</div>
+      </div>
+    </div>
+    <div class="sp-pillars">
+      <div class="sp-pillar">
+        <div class="sp-pillar-icon">💰</div>
+        <div class="sp-pillar-val">1 PT</div>
+        <div class="sp-pillar-lbl">Per $1 Spent</div>
+      </div>
+      <div class="sp-pillar">
+        <div class="sp-pillar-icon">🌿</div>
+        <div class="sp-pillar-val">100%</div>
+        <div class="sp-pillar-lbl">Items Eligible</div>
+      </div>
+      <div class="sp-pillar">
+        <div class="sp-pillar-icon">🎁</div>
+        <div class="sp-pillar-val">Redeem</div>
+        <div class="sp-pillar-lbl">Free Product</div>
+      </div>
+      <div class="sp-pillar">
+        <div class="sp-pillar-icon">✦</div>
+        <div class="sp-pillar-val">Never</div>
+        <div class="sp-pillar-lbl">Points Expire</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SHOP -->
+<section id="shop">
+  <div class="shop-inner">
+    <div class="shop-header reveal">
+      <span class="sec-label">The Collection</span>
+      <h2 class="sec-title">Dogwalkers <em>Pre-Rolls</em></h2>
+      <p class="sec-desc">0.6G Prerolls · Indoor Exotics · Permit #2026-N-2229181 · Contains &lt;0.3% Delta-9 THC · 21+ Only</p>
+    </div>
+    <div class="tab-wrap reveal">
+      <button class="tab-btn active" onclick="switchTab('thca',this)">THCA Prerolls <span class="tab-badge">3 Strains</span></button>
+      <button class="tab-btn" onclick="switchTab('thcp',this)">THCP Prerolls <span class="tab-badge">3 Strains</span></button>
+    </div>
+
+    <!-- THCA -->
+    <div class="tab-panel active" id="tab-thca">
+      <div class="prod-grid">
+        <div class="prod-card reveal" onclick="openModal('gg','thca')">
+          <div class="pip pip-green"><div class="pip-glow"></div><div class="pip-inner"><div class="pip-brand-tag">Vivid Vines</div><div class="pip-strain-name">Green<br/>Goddess</div><span class="pip-cannabinoid-badge thca-badge">0.6G THCA</span></div><div class="pip-bg-text">GG</div></div>
+          <div class="prod-info">
+            <div class="prod-top"><span class="type-tag ts">Sativa</span><span class="prod-cann-label">THCA · Dogwalkers</span></div>
+            <div class="prod-name">Green Goddess</div>
+            <div class="prod-sub">Indoor Exotics · 0.6G Pre-Roll</div>
+            <div class="prod-desc">Vibrant botanicals with bright citrus lift and earthy depth. Lush cerebral energy awakens the senses.</div>
+            <div class="prod-footer"><div class="prod-price">$20.00<small>Per Pre-Roll</small><div class="prod-points">+20 Smoke Points</div></div>
+              <div class="prod-btns"><button class="btn-view" onclick="event.stopPropagation();openModal('gg','thca')">Details</button><button class="btn-cart" id="btn-gg-thca" onclick="event.stopPropagation();addCart('Green Goddess','THCA · Sativa','gg-thca','pip-green')">+ Cart</button></div>
+            </div>
+          </div>
+        </div>
+        <div class="prod-card reveal" onclick="openModal('se','thca')" style="transition-delay:.1s">
+          <div class="pip pip-gold"><div class="pip-glow"></div><div class="pip-inner"><div class="pip-brand-tag">Vivid Vines</div><div class="pip-strain-name">Sunshine<br/>Express</div><span class="pip-cannabinoid-badge thca-badge">0.6G THCA</span></div><div class="pip-bg-text">SE</div></div>
+          <div class="prod-info">
+            <div class="prod-top"><span class="type-tag th">Hybrid</span><span class="prod-cann-label">THCA · Dogwalkers</span></div>
+            <div class="prod-name">Sunshine Express</div>
+            <div class="prod-sub">Indoor Exotics · 0.6G Pre-Roll</div>
+            <div class="prod-desc">Golden sunflower sweetness meets warm hybrid euphoria — uplifted yet perfectly grounded.</div>
+            <div class="prod-footer"><div class="prod-price">$20.00<small>Per Pre-Roll</small><div class="prod-points">+20 Smoke Points</div></div>
+              <div class="prod-btns"><button class="btn-view" onclick="event.stopPropagation();openModal('se','thca')">Details</button><button class="btn-cart" id="btn-se-thca" onclick="event.stopPropagation();addCart('Sunshine Express','THCA · Hybrid','se-thca','pip-gold')">+ Cart</button></div>
+            </div>
+          </div>
+        </div>
+        <div class="prod-card reveal" onclick="openModal('sd','thca')" style="transition-delay:.2s">
+          <div class="pip pip-rose"><div class="pip-glow"></div><div class="pip-inner"><div class="pip-brand-tag">Vivid Vines</div><div class="pip-strain-name">Snapdragon<br/>Drift</div><span class="pip-cannabinoid-badge thca-badge">0.6G THCA</span></div><div class="pip-bg-text">SD</div></div>
+          <div class="prod-info">
+            <div class="prod-top"><span class="type-tag ti">Indica</span><span class="prod-cann-label">THCA · Dogwalkers</span></div>
+            <div class="prod-name">Snapdragon Drift</div>
+            <div class="prod-sub">Indoor Exotics · 0.6G Pre-Roll</div>
+            <div class="prod-desc">Soft blush petals and rosy calm drift you into deep, full-body tranquility.</div>
+            <div class="prod-footer"><div class="prod-price">$20.00<small>Per Pre-Roll</small><div class="prod-points">+20 Smoke Points</div></div>
+              <div class="prod-btns"><button class="btn-view" onclick="event.stopPropagation();openModal('sd','thca')">Details</button><button class="btn-cart" id="btn-sd-thca" onclick="event.stopPropagation();addCart('Snapdragon Drift','THCA · Indica','sd-thca','pip-rose')">+ Cart</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- THCP -->
+    <div class="tab-panel" id="tab-thcp">
+      <div class="prod-grid">
+        <div class="prod-card reveal" onclick="openModal('gg','thcp')">
+          <div class="pip pip-green"><div class="pip-glow"></div><div class="pip-inner"><div class="pip-brand-tag">Vivid Vines</div><div class="pip-strain-name">Green<br/>Goddess</div><span class="pip-cannabinoid-badge thcp-badge">0.6G THCP</span></div><div class="pip-bg-text">GG</div></div>
+          <div class="prod-info">
+            <div class="prod-top"><span class="type-tag ts">Sativa</span><span class="prod-cann-label">THCP · Dogwalkers</span></div>
+            <div class="prod-name">Green Goddess</div>
+            <div class="prod-sub">Indoor Exotics · 0.6G Pre-Roll</div>
+            <div class="prod-desc">The Goddess amplified. THCP brings intensified botanical elevation — vivid focus meets powerful euphoria.</div>
+            <div class="prod-footer"><div class="prod-price">$20.00<small>Per Pre-Roll</small><div class="prod-points">+20 Smoke Points</div></div>
+              <div class="prod-btns"><button class="btn-view" onclick="event.stopPropagation();openModal('gg','thcp')">Details</button><button class="btn-cart" id="btn-gg-thcp" onclick="event.stopPropagation();addCart('Green Goddess','THCP · Sativa','gg-thcp','pip-green')">+ Cart</button></div>
+            </div>
+          </div>
+        </div>
+        <div class="prod-card reveal" onclick="openModal('se','thcp')" style="transition-delay:.1s">
+          <div class="pip pip-gold"><div class="pip-glow"></div><div class="pip-inner"><div class="pip-brand-tag">Vivid Vines</div><div class="pip-strain-name">Sunshine<br/>Express</div><span class="pip-cannabinoid-badge thcp-badge">0.6G THCP</span></div><div class="pip-bg-text">SE</div></div>
+          <div class="prod-info">
+            <div class="prod-top"><span class="type-tag th">Hybrid</span><span class="prod-cann-label">THCP · Dogwalkers</span></div>
+            <div class="prod-name">Sunshine Express</div>
+            <div class="prod-sub">Indoor Exotics · 0.6G Pre-Roll</div>
+            <div class="prod-desc">THCP-powered sunshine. Golden hybrid experience amplified — warm, social, beautifully balanced.</div>
+            <div class="prod-footer"><div class="prod-price">$20.00<small>Per Pre-Roll</small><div class="prod-points">+20 Smoke Points</div></div>
+              <div class="prod-btns"><button class="btn-view" onclick="event.stopPropagation();openModal('se','thcp')">Details</button><button class="btn-cart" id="btn-se-thcp" onclick="event.stopPropagation();addCart('Sunshine Express','THCP · Hybrid','se-thcp','pip-gold')">+ Cart</button></div>
+            </div>
+          </div>
+        </div>
+        <div class="prod-card reveal" onclick="openModal('sd','thcp')" style="transition-delay:.2s">
+          <div class="pip pip-rose"><div class="pip-glow"></div><div class="pip-inner"><div class="pip-brand-tag">Vivid Vines</div><div class="pip-strain-name">Snapdragon<br/>Drift</div><span class="pip-cannabinoid-badge thcp-badge">0.6G THCP</span></div><div class="pip-bg-text">SD</div></div>
+          <div class="prod-info">
+            <div class="prod-top"><span class="type-tag ti">Indica</span><span class="prod-cann-label">THCP · Dogwalkers</span></div>
+            <div class="prod-name">Snapdragon Drift</div>
+            <div class="prod-sub">Indoor Exotics · 0.6G Pre-Roll</div>
+            <div class="prod-desc">Deep drift intensified. THCP transforms this Indica into a profoundly tranquil, enveloping body experience.</div>
+            <div class="prod-footer"><div class="prod-price">$20.00<small>Per Pre-Roll</small><div class="prod-points">+20 Smoke Points</div></div>
+              <div class="prod-btns"><button class="btn-view" onclick="event.stopPropagation();openModal('sd','thcp')">Details</button><button class="btn-cart" id="btn-sd-thcp" onclick="event.stopPropagation();addCart('Snapdragon Drift','THCP · Indica','sd-thcp','pip-rose')">+ Cart</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODAL -->
+<div id="moverlay" onclick="closeMifBg(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeM()">✕</button>
+    <div class="modal-vis" id="modal-vis"><div class="modal-vis-glow"></div><div class="modal-vis-content" id="modal-vis-c"></div></div>
+    <div class="modal-info" id="modal-info"></div>
+  </div>
+</div>
+
+<!-- STORY -->
+<section id="story">
+  <div class="story-inner">
+    <div class="story-vis reveal">
+      <div class="hex-wrap">
+        <div class="sring"></div><div class="sring"></div><div class="sring"></div>
+        <div class="hex">VVV</div>
+      </div>
+    </div>
+    <div class="reveal">
+      <span class="sec-label">About Vivid Vines</span>
+      <h2 class="sec-title">Rooted in <em>Craft.</em></h2>
+      <p class="story-text">Vivid Vines THC was born from a reverence for the plant and a relentless pursuit of quality. Our Dogwalkers pre-roll line is grown with intention — small-batch indoor cultivation meeting meticulous hand-finishing.</p>
+      <p class="story-text" style="margin-top:.8rem;">Every VVVTHC product is 2018 Hemp Farm Bill compliant, lab-verified, and crafted for those who know the difference quality makes.</p>
+      <div class="sstats">
+        <div><div class="ssn">3</div><div class="ssl">Signature Strains</div></div>
+        <div><div class="ssn">2</div><div class="ssl">Cannabinoid Lines</div></div>
+        <div><div class="ssn">100%</div><div class="ssl">Indoor Grown</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <div class="fg">
+    <div class="fg-b">
+      <span class="logo">VVV<span>THC</span></span>
+      <p>Vivid Vines THC — Indoor Exotics. Premium Dogwalkers pre-rolls. THCA &amp; THCP. Contains &lt;0.3% Delta-9 THC. 2018 Hemp Farm Bill Compliant. Permit #2026-N-2229181.</p>
+    </div>
+    <div class="fg-c"><h5>Products</h5><ul><li><a href="#shop">THCA Prerolls</a></li><li><a href="#shop">THCP Prerolls</a></li><li><a href="#shop">Green Goddess</a></li><li><a href="#shop">Sunshine Express</a></li><li><a href="#shop">Snapdragon Drift</a></li></ul></div>
+    <div class="fg-c"><h5>Brand</h5><ul><li><a href="#story">Our Story</a></li><li><a href="#">Lab Results</a></li><li><a href="#">Wholesale</a></li><li><a href="#">Press</a></li></ul></div>
+    <div class="fg-c"><h5>Connect</h5><ul><li><a href="#">Instagram</a></li><li><a href="#">Find a Dispensary</a></li><li><a href="#">Contact Us</a></li><li><a href="#">Permit #2026-N-2229181</a></li></ul></div>
+  </div>
+  <div class="fb">
+    <p>© 2024 Vivid Vines THC — VVVTHC. For Adults 21+ Only. Food Entity #431284. Do not eat. Keep out of reach of children.</p>
+    <div class="age-badge">21+ | USE RESPONSIBLY</div>
+  </div>
+</footer>
+
+<div id="toast"></div>
+
+<script>
+// Tabs
+function switchTab(t,btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+t).classList.add('active');
+  btn.classList.add('active');
+  document.querySelectorAll('#tab-'+t+' .reveal').forEach((r,i)=>{r.classList.remove('vis');setTimeout(()=>r.classList.add('vis'),i*80+50);});
+}
+
+// Product data
+const PD={
+  gg:{name:'Green Goddess',tagline:'Sativa · Indoor Exotics',c:'pip-green',type:'Sativa',tc:'ts',
+    desc:'A lush, vibrant sativa with richly complex botanical notes. Bright citrus and fresh-cut flora on the front, melting into an earthy, grounding base. Delivers clear-headed, creative uplift ideal for daytime.',
+    effects:'Uplifting · Creative · Focused',flavor:'Citrus · Floral · Earthy'},
+  se:{name:'Sunshine Express',tagline:'Hybrid · Indoor Exotics',c:'pip-gold',type:'Hybrid',tc:'th',
+    desc:'Board the golden express. Radiant sunflower sweetness meets warm, euphoric hybrid body. Sunshine Express perfectly balances cerebral energy with physical ease — a true all-day companion.',
+    effects:'Euphoric · Balanced · Social',flavor:'Sunflower · Sweet · Warm Spice'},
+  sd:{name:'Snapdragon Drift',tagline:'Indica · Indoor Exotics',c:'pip-rose',type:'Indica',tc:'ti',
+    desc:'Drift away on soft rose petals and warm blush. A deeply relaxing Indica with velvety floral notes and full-body tranquility that eases you gently into the evening.',
+    effects:'Relaxing · Calming · Sleepy',flavor:'Rose · Berry · Sweet Earth'},
+};
+
+function openModal(s,cann){
+  const p=PD[s];const isP=cann==='thcp';
+  const vis=document.getElementById('modal-vis');
+  vis.className='modal-vis '+p.c;
+  document.getElementById('modal-vis-c').innerHTML=`
+    <div style="font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.3em;color:var(--gold);margin-bottom:.7rem;">VIVID VINES</div>
+    <div style="font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:900;color:#fff;line-height:1.05;margin-bottom:.8rem;">${p.name}</div>
+    <div style="font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.2em;padding:.38rem 1.1rem;border:1.5px solid ${isP?'var(--gold)':'var(--leaf)'};color:${isP?'var(--gold)':'var(--leaf)'};display:inline-block;margin-bottom:1rem;">0.6G ${cann.toUpperCase()}</div>
+    <div style="font-size:.78rem;color:rgba(245,239,224,.45);font-family:'Cinzel',serif;letter-spacing:.12em;">${p.tagline}</div>
+    <div style="margin-top:1.2rem;font-size:.62rem;color:rgba(245,239,224,.25);font-family:'Cinzel',serif;letter-spacing:.12em;">Dogwalkers · Indoor Exotics</div>
+  `;
+  document.getElementById('modal-info').innerHTML=`
+    <div class="modal-cann-pill">✦ ${cann.toUpperCase()} Preroll &nbsp;·&nbsp; 0.6G Dogwalkers</div>
+    <div class="modal-strain-title">${p.name}</div>
+    <div class="modal-tags"><span class="type-tag ${p.tc}">${p.type}</span><span class="type-tag" style="background:rgba(255,255,255,.04);color:rgba(245,239,224,.35);border:1px solid rgba(255,255,255,.06);">Indoor Exotics</span></div>
+    <p class="modal-p">${p.desc}</p>
+    <div class="modal-grid">
+      <div class="mgi"><div class="mgi-l">Effects</div><div class="mgi-v" style="font-size:.8rem;">${p.effects}</div></div>
+      <div class="mgi"><div class="mgi-l">Flavor</div><div class="mgi-v" style="font-size:.8rem;">${p.flavor}</div></div>
+      <div class="mgi"><div class="mgi-l">Size</div><div class="mgi-v">0.6G Pre-Roll</div></div>
+      <div class="mgi"><div class="mgi-l">Cannabinoid</div><div class="mgi-v">${cann.toUpperCase()}</div></div>
+    </div>
+    <div class="modal-price-row"><div class="modal-price">$20.00</div><span style="font-size:.65rem;color:rgba(245,239,224,.28);letter-spacing:.1em;">Per Pre-Roll</span></div>
+    <div style="display:flex;align-items:center;gap:.5rem;padding:.5rem 0;font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.14em;color:var(--leaf);">🔥 +20 Smoke Points &nbsp;·&nbsp; <span style="color:rgba(245,239,224,.3);">Smoke Points Verified</span></div>
+    <button class="modal-add" onclick="addCart('${p.name}','${cann.toUpperCase()} · ${p.type}','${s}-${cann}','${p.c}');closeM();">Add to Cart — $20.00</button>
+    <p class="modal-legal">Contains &lt;0.3% Delta-9 THC · 2018 Hemp Farm Bill Compliant · ASTM D3475-20 · 21+ Only · Permit #2026-N-2229181 · Food Entity #431284. Do not eat. Keep out of reach of children. May cause drowsiness. Do not drive or operate heavy machinery. Use may result in a positive drug test.</p>
+  `;
+  document.getElementById('moverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeM(){document.getElementById('moverlay').classList.remove('open');document.body.style.overflow='';}
+function closeMifBg(e){if(e.target===document.getElementById('moverlay'))closeM();}
+
+// Cart
+let cart={};
+const grads={'pip-green':'linear-gradient(135deg,#071a08,#1a4a22)','pip-gold':'linear-gradient(135deg,#1a1000,#4a3a08)','pip-rose':'linear-gradient(135deg,#150609,#4a1828)'};
+
+function addCart(name,sub,id,cc){
+  if(!cart[id])cart[id]={name,sub,id,cc,qty:1,price:20};
+  else cart[id].qty++;
+  updateCartUI();
+  showToast(name+' added!');
+  const btn=document.getElementById('btn-'+id);
+  if(btn){btn.textContent='✓ Added';btn.classList.add('added');setTimeout(()=>{btn.textContent='+ Cart';btn.classList.remove('added');},1800);}
+}
+function removeFromCart(id){delete cart[id];updateCartUI();}
+
+function updateCartUI(){
+  const items=Object.values(cart);
+  const count=items.reduce((s,i)=>s+i.qty,0);
+  const total=items.reduce((s,i)=>s+i.price*i.qty,0);
+  const cc=document.getElementById('cart-count');
+  cc.textContent=count;cc.style.display=count>0?'flex':'none';
+  document.getElementById('cart-total').textContent='$'+total.toFixed(2);
+  const pts=document.getElementById('cart-points');
+  if(pts)pts.textContent=total+' pts';
+  const el=document.getElementById('cart-items');
+  if(!items.length){el.innerHTML='<div class="cart-empty-msg">Your cart is empty.<br/>Add some flower.</div>';return;}
+  el.innerHTML=items.map(i=>`<div class="cart-item">
+    <div class="ci-dot" style="background:${grads[i.cc]||'#1a4a22'}">${i.id.split('-')[0].toUpperCase()}</div>
+    <div class="ci-info"><div class="ci-name">${i.name}${i.qty>1?' ×'+i.qty:''}</div><div class="ci-sub">${i.sub} · 0.6G</div><div class="ci-price">$${(i.price*i.qty).toFixed(2)}</div></div>
+    <button class="ci-rm" onclick="removeFromCart('${i.id}')">✕</button>
+  </div>`).join('');
+}
+
+function openCart(){document.getElementById('cartdrawer').classList.add('open');document.getElementById('cart-backdrop').classList.add('open');document.body.style.overflow='hidden';}
+function closeCart(){document.getElementById('cartdrawer').classList.remove('open');document.getElementById('cart-backdrop').classList.remove('open');document.body.style.overflow='';}
+
+// Toast
+let tt;
+function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),2200);}
+
+// Scroll reveal
+const obs=new IntersectionObserver(entries=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('vis'),i*80);obs.unobserve(e.target);}});},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
+</script>
+</body>
+</html>

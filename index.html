@@ -350,6 +350,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .coa-pdf-btn:hover{background:var(--gold);color:var(--deep);}
 .coa-pdf-btn-icon{font-size:1rem;}
 
+.lab-allreports{display:flex;justify-content:center;margin-top:3rem;}
+.btn-lab-all{
+  display:inline-block;padding:1rem 2.6rem;
+  background:transparent;border:1px solid var(--gold);
+  color:var(--gold);font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
+  text-decoration:none;transition:all .3s;border-radius:2px;
+}
+.btn-lab-all:hover{background:var(--gold);color:var(--deep);}
+
 /* How to update callout — removed */
 
 /* FOOTER */
@@ -750,10 +759,10 @@ footer{background:var(--deep);border-top:1px solid rgba(201,168,76,.1);padding:4
           </div>
           <div class="coa-card-bottom">
             <div class="coa-status-row">
-              <div class="coa-status-dot pending"></div>
-              <span class="coa-status-text pending">Lab Report Coming Soon</span>
+              <div class="coa-status-dot uploaded"></div>
+              <span class="coa-status-text uploaded">Lab Report Available</span>
             </div>
-            <a class="coa-pdf-btn" href="#" onclick="return coaClick(event)">
+            <a class="coa-pdf-btn" href="coa/VV_THCP_Green_Goddess_COA.pdf" target="_blank" rel="noopener" onclick="return coaClick(event)">
               <span>📋</span> View Lab Report
             </a>
           </div>
@@ -773,10 +782,10 @@ footer{background:var(--deep);border-top:1px solid rgba(201,168,76,.1);padding:4
           </div>
           <div class="coa-card-bottom">
             <div class="coa-status-row">
-              <div class="coa-status-dot pending"></div>
-              <span class="coa-status-text pending">Lab Report Coming Soon</span>
+              <div class="coa-status-dot uploaded"></div>
+              <span class="coa-status-text uploaded">Lab Report Available</span>
             </div>
-            <a class="coa-pdf-btn" href="#" onclick="return coaClick(event)">
+            <a class="coa-pdf-btn" href="coa/VV_THCP_Sunshine_Express_COA.pdf" target="_blank" rel="noopener" onclick="return coaClick(event)">
               <span>📋</span> View Lab Report
             </a>
           </div>
@@ -796,16 +805,20 @@ footer{background:var(--deep);border-top:1px solid rgba(201,168,76,.1);padding:4
           </div>
           <div class="coa-card-bottom">
             <div class="coa-status-row">
-              <div class="coa-status-dot pending"></div>
-              <span class="coa-status-text pending">Lab Report Coming Soon</span>
+              <div class="coa-status-dot uploaded"></div>
+              <span class="coa-status-text uploaded">Lab Report Available</span>
             </div>
-            <a class="coa-pdf-btn" href="#" onclick="return coaClick(event)">
+            <a class="coa-pdf-btn" href="coa/VV_THCP_Snap_Dragon_COA.pdf" target="_blank" rel="noopener" onclick="return coaClick(event)">
               <span>📋</span> View Lab Report
             </a>
           </div>
         </div>
 
       </div>
+    </div>
+
+    <div class="lab-allreports reveal">
+      <a class="btn-lab-all" href="lab-reports.html">View All Lab Reports</a>
     </div>
 
   </div>

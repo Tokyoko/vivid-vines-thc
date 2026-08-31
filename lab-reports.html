@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Lab Reports — Vivid Vines THC | VVVTHC</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Cinzel:wght@400;600;700&family=Lora:wght@300;400;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --deep:#071209;--forest:#0d2410;--moss:#1a4a22;--vine:#2d8c3e;--leaf:#4eca61;
+  --gold:#c9a84c;--gold-light:#f0d07a;--cream:#f5efe0;--rose:#d4727a;--lavender:#9b7ec8;--sun:#e8b84b;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--deep);color:var(--cream);font-family:'Lora',serif;min-height:100vh;}
+
+/* NAV */
+nav{
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.1rem 3rem;
+  background:rgba(7,18,9,.97);
+  border-bottom:1px solid rgba(201,168,76,.15);
+  backdrop-filter:blur(10px);
+}
+.nav-logo{font-family:'Cinzel',serif;font-size:1.2rem;letter-spacing:.2em;color:var(--gold-light);text-decoration:none;}
+.nav-logo span{color:var(--leaf);}
+.nav-back{
+  display:flex;align-items:center;gap:.5rem;
+  font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(245,239,224,.5);text-decoration:none;transition:color .3s;
+}
+.nav-back:hover{color:var(--gold-light);}
+.nav-back::before{content:'←';}
+
+/* HERO STRIP */
+.lab-hero{
+  background:linear-gradient(135deg,#071209 0%,#0d2e12 50%,#071209 100%);
+  border-bottom:1px solid rgba(201,168,76,.12);
+  padding:4rem 3rem 3.5rem;
+  text-align:center;
+  position:relative;overflow:hidden;
+}
+.lab-hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 100%,rgba(78,202,97,.08) 0%,transparent 65%);
+}
+.lab-eyebrow{
+  font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.4em;
+  color:var(--gold);text-transform:uppercase;margin-bottom:1rem;position:relative;
+}
+.lab-title{
+  font-family:'Playfair Display',serif;font-size:clamp(2.5rem,6vw,4.5rem);
+  font-weight:900;color:#fff;line-height:1.05;position:relative;
+}
+.lab-title em{font-style:italic;color:var(--leaf);}
+.lab-sub{
+  font-size:.88rem;color:rgba(245,239,224,.5);letter-spacing:.12em;
+  margin-top:.8rem;position:relative;
+}
+
+/* COMPLIANCE BAR */
+.compliance-bar{
+  background:rgba(78,202,97,.05);
+  border-bottom:1px solid rgba(78,202,97,.1);
+  padding:.9rem 2rem;
+  display:flex;align-items:center;justify-content:center;
+  gap:2.5rem;flex-wrap:wrap;
+}
+.cb-item{
+  display:flex;align-items:center;gap:.45rem;
+  font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.15em;
+  color:rgba(245,239,224,.45);text-transform:uppercase;
+}
+.cb-item::before{content:'✓';color:var(--leaf);font-weight:700;font-size:.7rem;}
+
+/* MAIN */
+.lab-main{max-width:1200px;margin:0 auto;padding:4rem 2rem 6rem;}
+
+/* CATEGORY */
+.coa-cat{margin-bottom:4rem;}
+.coa-cat-head{
+  display:flex;align-items:center;gap:1rem;
+  padding-bottom:1rem;margin-bottom:2rem;
+  border-bottom:1px solid rgba(201,168,76,.12);
+}
+.coa-badge{
+  font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.22em;
+  padding:.42rem 1.2rem;text-transform:uppercase;font-weight:700;
+}
+.badge-thca{background:rgba(78,202,97,.12);color:var(--leaf);border:1.5px solid rgba(78,202,97,.3);}
+.badge-thcp{background:rgba(201,168,76,.1);color:var(--gold);border:1.5px solid rgba(201,168,76,.3);}
+.cat-title{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:#fff;}
+.cat-sub{font-size:.72rem;color:rgba(245,239,224,.3);letter-spacing:.08em;margin-top:.15rem;}
+
+/* COA GRID */
+.coa-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+
+/* COA CARD */
+.coa-card{
+  background:var(--forest);
+  border:1px solid rgba(201,168,76,.1);
+  border-radius:8px;overflow:hidden;
+  transition:transform .35s,border-color .35s,box-shadow .35s;
+  display:flex;flex-direction:column;
+}
+.coa-card:hover{
+  transform:translateY(-7px);
+  border-color:rgba(201,168,76,.3);
+  box-shadow:0 24px 60px rgba(0,0,0,.5);
+}
+
+/* card top colour bar */
+.coa-bar{height:5px;width:100%;}
+.bar-green{background:linear-gradient(to right,var(--vine),var(--leaf));}
+.bar-gold{background:linear-gradient(to right,#8a6a20,var(--gold-light));}
+.bar-rose{background:linear-gradient(to right,#8a2a35,var(--rose));}
+
+.coa-body{padding:1.8rem 1.8rem 1.4rem;flex:1;}
+.coa-icon{
+  width:50px;height:50px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;margin-bottom:1rem;
+  border:1px solid rgba(255,255,255,.07);
+}
+.icon-green{background:linear-gradient(135deg,#0d2e12,#1a4a22);}
+.icon-gold{background:linear-gradient(135deg,#1a1000,#4a3a08);}
+.icon-rose{background:linear-gradient(135deg,#150609,#4a1828);}
+
+.coa-strain{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;color:#fff;margin-bottom:.25rem;}
+.coa-type{
+  font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:.9rem;
+}
+.type-sativa{color:var(--leaf);}
+.type-hybrid{color:var(--sun);}
+.type-indica{color:var(--lavender);}
+
+.coa-pills{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.2rem;}
+.coa-pill{
+  font-family:'Cinzel',serif;font-size:.54rem;letter-spacing:.12em;
+  padding:.2rem .6rem;border-radius:20px;
+  background:rgba(0,0,0,.25);color:rgba(245,239,224,.38);
+  border:1px solid rgba(255,255,255,.05);
+}
+
+/* STATUS */
+.coa-status{display:flex;align-items:center;gap:.55rem;margin-bottom:1.2rem;}
+.status-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.dot-pending{background:var(--gold);box-shadow:0 0 8px rgba(201,168,76,.6);animation:dpulse 1.6s ease-in-out infinite;}
+.dot-live{background:var(--leaf);box-shadow:0 0 8px rgba(78,202,97,.6);}
+@keyframes dpulse{0%,100%{opacity:1}50%{opacity:.3}}
+.status-text{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;}
+.status-pending{color:var(--gold);}
+.status-live{color:var(--leaf);}
+
+/* CTA BUTTON */
+.coa-footer{padding:0 1.8rem 1.8rem;}
+.coa-btn{
+  display:flex;align-items:center;justify-content:center;gap:.6rem;
+  width:100%;padding:.9rem 1rem;border-radius:4px;
+  font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
+  text-decoration:none;transition:all .3s;cursor:pointer;border:none;
+}
+.btn-pending{
+  background:rgba(201,168,76,.06);
+  border:1px solid rgba(201,168,76,.18);
+  color:rgba(201,168,76,.4);
+  cursor:not-allowed;
+}
+.btn-live{
+  background:rgba(78,202,97,.1);
+  border:1px solid rgba(78,202,97,.3);
+  color:var(--leaf);
+}
+.btn-live:hover{background:var(--leaf);color:var(--deep);}
+.btn-icon{font-size:1rem;}
+
+/* COMING SOON NOTE */
+.coming-note{
+  text-align:center;margin-top:3rem;padding:1.5rem 2rem;
+  background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.1);border-radius:6px;
+}
+.coming-note p{font-size:.82rem;color:rgba(245,239,224,.4);line-height:1.7;}
+.coming-note strong{color:var(--gold-light);}
+
+/* FOOTER */
+footer{
+  background:var(--deep);border-top:1px solid rgba(201,168,76,.08);
+  padding:2rem 3rem;text-align:center;
+}
+footer p{font-size:.68rem;color:rgba(245,239,224,.2);line-height:1.8;}
+
+/* PASS TAGS */
+.passes-row{display:flex;flex-wrap:wrap;gap:.3rem;margin:.7rem 0 .5rem;}
+.pass-tag{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.1em;padding:.18rem .5rem;border-radius:20px;background:rgba(78,202,97,.1);color:var(--leaf);border:1px solid rgba(78,202,97,.2);white-space:nowrap;}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.vis{opacity:1;transform:translateY(0);}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .coa-grid{grid-template-columns:1fr 1fr;}
+  nav{padding:1rem 1.5rem;}
+  .lab-hero{padding:3rem 1.5rem 2.5rem;}
+  .lab-main{padding:3rem 1.2rem 4rem;}
+}
+@media(max-width:480px){
+  .coa-grid{grid-template-columns:1fr;}
+  .compliance-bar{gap:1.2rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">VVV<span>THC</span></a>
+  <a href="index.html" class="nav-back">Back to Store</a>
+</nav>
+
+<!-- HERO -->
+<div class="lab-hero">
+  <p class="lab-eyebrow">Transparency &amp; Testing · VVVTHC</p>
+  <h1 class="lab-title">Lab <em>Reports</em></h1>
+  <p class="lab-sub">Certificates of Analysis · Third-Party Verified · All 6 Products</p>
+</div>
+
+<!-- COMPLIANCE BAR -->
+<div class="compliance-bar">
+  <div class="cb-item">2018 Hemp Farm Bill Compliant</div>
+  <div class="cb-item">ASTM D3475-20 Compliant</div>
+  <div class="cb-item">Third-Party Lab Tested</div>
+  <div class="cb-item">&lt;0.3% Delta-9 THC</div>
+  <div class="cb-item">Permit #2026-N-2229181</div>
+  <div class="cb-item">Food Entity #431284</div>
+</div>
+
+<!-- MAIN -->
+<div class="lab-main">
+
+  <!-- THCA -->
+  <div class="coa-cat reveal">
+    <div class="coa-cat-head">
+      <span class="coa-badge badge-thca">THCA</span>
+      <div>
+        <div class="cat-title">THCA Prerolls — Dogwalkers 0.6G</div>
+        <div class="cat-sub">Certificates of Analysis · Indoor Exotics Collection</div>
+      </div>
+    </div>
+    <div class="coa-grid">
+
+      <!-- GG THCA -->
+      <div class="coa-card">
+        <div class="coa-bar bar-green"></div>
+        <div class="coa-body">
+          <div class="coa-icon icon-green">🌿</div>
+          <div class="coa-strain">Green Goddess</div>
+          <div class="coa-type type-sativa">Sativa · THCA</div>
+          <div class="coa-pills">
+            <span class="coa-pill">0.6G Preroll</span>
+            <span class="coa-pill">Dogwalkers</span>
+            <span class="coa-pill">Indoor Exotics</span>
+          </div>
+          <div class="coa-status">
+            <div class="status-dot dot-pending"></div>
+            <span class="status-text status-pending">Lab Report Coming Soon</span>
+          </div>
+        </div>
+        <div class="coa-footer">
+          <!-- SWAP href="#" FOR YOUR PDF LINK WHEN READY — also change btn-pending to btn-live and dot/status classes -->
+          <a class="coa-btn btn-pending" href="#" onclick="pending(event)">
+            <span class="btn-icon">📋</span> View Lab Report
+          </a>
+        </div>
+      </div>
+
+      <!-- SE THCA -->
+      <div class="coa-card">
+        <div class="coa-bar bar-gold"></div>
+        <div class="coa-body">
+          <div class="coa-icon icon-gold">☀️</div>
+          <div class="coa-strain">Sunshine Express</div>
+          <div class="coa-type type-hybrid">Hybrid · THCA</div>
+          <div class="coa-pills">
+            <span class="coa-pill">0.6G Preroll</span>
+            <span class="coa-pill">Dogwalkers</span>
+            <span class="coa-pill">Indoor Exotics</span>
+          </div>
+          <div class="coa-status">
+            <div class="status-dot dot-pending"></div>
+            <span class="status-text status-pending">Lab Report Coming Soon</span>
+          </div>
+        </div>
+        <div class="coa-footer">
+          <a class="coa-btn btn-pending" href="#" onclick="pending(event)">
+            <span class="btn-icon">📋</span> View Lab Report
+          </a>
+        </div>
+      </div>
+
+      <!-- SD THCA -->
+      <div class="coa-card">
+        <div class="coa-bar bar-rose"></div>
+        <div class="coa-body">
+          <div class="coa-icon icon-rose">🌸</div>
+          <div class="coa-strain">Snapdragon Drift</div>
+          <div class="coa-type type-indica">Indica · THCA</div>
+          <div class="coa-pills">
+            <span class="coa-pill">0.6G Preroll</span>
+            <span class="coa-pill">Dogwalkers</span>
+            <span class="coa-pill">Indoor Exotics</span>
+          </div>
+          <div class="coa-status">
+            <div class="status-dot dot-pending"></div>
+            <span class="status-text status-pending">Lab Report Coming Soon</span>
+          </div>
+        </div>
+        <div class="coa-footer">
+          <a class="coa-btn btn-pending" href="#" onclick="pending(event)">
+            <span class="btn-icon">📋</span> View Lab Report
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- THCP -->
+  <div class="coa-cat reveal">
+    <div class="coa-cat-head">
+      <span class="coa-badge badge-thcp">THCP</span>
+      <div>
+        <div class="cat-title">THCP Prerolls — Dogwalkers 0.6G</div>
+        <div class="cat-sub">Certificates of Analysis · ACS Laboratory · Batch Date: 2026-06-09 · All Tests Passed</div>
+      </div>
+    </div>
+    <div class="coa-grid">
+
+      <!-- GG THCP LIVE -->
+      <div class="coa-card">
+        <div class="coa-bar bar-green"></div>
+        <div class="coa-body">
+          <div class="coa-icon icon-green">🌿</div>
+          <div class="coa-strain">Green Goddess</div>
+          <div class="coa-type type-sativa">Sativa · THCP</div>
+          <div class="coa-pills">
+            <span class="coa-pill">11.5% THCP</span>
+            <span class="coa-pill">25.2% Delta-8</span>
+            <span class="coa-pill">41.6% Cannabinoids</span>
+          </div>
+          <div class="coa-pills" style="margin-top:.3rem;">
+            <span class="coa-pill">Batch #VVDPPGG060926</span>
+            <span class="coa-pill">ACS Lab · FL &amp; GA</span>
+          </div>
+          <div class="passes-row">
+            <span class="pass-tag">✓ Potency</span><span class="pass-tag">✓ Pesticides</span><span class="pass-tag">✓ Heavy Metals</span><span class="pass-tag">✓ Mycotoxins</span><span class="pass-tag">✓ Solvents</span><span class="pass-tag">✓ Microbiology</span><span class="pass-tag">✓ Vitamin E</span>
+          </div>
+          <div class="coa-status">
+            <div class="status-dot dot-live"></div>
+            <span class="status-text status-live">Lab Verified ✓ — ACS Laboratory</span>
+          </div>
+        </div>
+        <div class="coa-footer">
+          <a class="coa-btn btn-live" href="coa/VV_THCP_Green_Goddess_COA.pdf" target="_blank" rel="noopener">
+            <span class="btn-icon">📋</span> View Full Lab Report
+          </a>
+        </div>
+      </div>
+
+      <!-- SE THCP LIVE -->
+      <div class="coa-card">
+        <div class="coa-bar bar-gold"></div>
+        <div class="coa-body">
+          <div class="coa-icon icon-gold">☀️</div>
+          <div class="coa-strain">Sunshine Express</div>
+          <div class="coa-type type-hybrid">Hybrid · THCP</div>
+          <div class="coa-pills">
+            <span class="coa-pill">11.5% THCP</span>
+            <span class="coa-pill">25.4% Delta-8</span>
+            <span class="coa-pill">41.5% Cannabinoids</span>
+          </div>
+          <div class="coa-pills" style="margin-top:.3rem;">
+            <span class="coa-pill">Batch #VVDPPSE060926</span>
+            <span class="coa-pill">ACS Lab · FL &amp; GA</span>
+          </div>
+          <div class="passes-row">
+            <span class="pass-tag">✓ Potency</span><span class="pass-tag">✓ Pesticides</span><span class="pass-tag">✓ Heavy Metals</span><span class="pass-tag">✓ Mycotoxins</span><span class="pass-tag">✓ Solvents</span><span class="pass-tag">✓ Microbiology</span><span class="pass-tag">✓ Vitamin E</span>
+          </div>
+          <div class="coa-status">
+            <div class="status-dot dot-live"></div>
+            <span class="status-text status-live">Lab Verified ✓ — ACS Laboratory</span>
+          </div>
+        </div>
+        <div class="coa-footer">
+          <a class="coa-btn btn-live" href="coa/VV_THCP_Sunshine_Express_COA.pdf" target="_blank" rel="noopener">
+            <span class="btn-icon">📋</span> View Full Lab Report
+          </a>
+        </div>
+      </div>
+
+      <!-- SD THCP LIVE -->
+      <div class="coa-card">
+        <div class="coa-bar bar-rose"></div>
+        <div class="coa-body">
+          <div class="coa-icon icon-rose">🌸</div>
+          <div class="coa-strain">Snapdragon Drift</div>
+          <div class="coa-type type-indica">Indica · THCP</div>
+          <div class="coa-pills">
+            <span class="coa-pill">12.0% THCP</span>
+            <span class="coa-pill">26.4% Delta-8</span>
+            <span class="coa-pill">43.1% Cannabinoids</span>
+          </div>
+          <div class="coa-pills" style="margin-top:.3rem;">
+            <span class="coa-pill">Batch #VVDPPSD060926</span>
+            <span class="coa-pill">ACS Lab · FL &amp; GA</span>
+          </div>
+          <div class="passes-row">
+            <span class="pass-tag">✓ Potency</span><span class="pass-tag">✓ Pesticides</span><span class="pass-tag">✓ Heavy Metals</span><span class="pass-tag">✓ Mycotoxins</span><span class="pass-tag">✓ Solvents</span><span class="pass-tag">✓ Microbiology</span><span class="pass-tag">✓ Vitamin E</span>
+          </div>
+          <div class="coa-status">
+            <div class="status-dot dot-live"></div>
+            <span class="status-text status-live">Lab Verified ✓ — ACS Laboratory</span>
+          </div>
+        </div>
+        <div class="coa-footer">
+          <a class="coa-btn btn-live" href="coa/VV_THCP_Snap_Dragon_COA.pdf" target="_blank" rel="noopener">
+            <span class="btn-icon">📋</span> View Full Lab Report
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- NOTE -->
+  <div class="coming-note reveal">
+    <p>Our <strong>3 THCP Preroll COAs are now live</strong> — issued by ACS Laboratory, certified for Florida &amp; Georgia. THCA lab reports are currently being finalized and will be published here shortly. Every Vivid Vines THC product contains less than 0.3% Delta-9 THC and is fully 2018 Hemp Farm Bill compliant.</p>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>
+    © 2024 Vivid Vines THC — VVVTHC · Indoor Exotics · Permit #2026-N-2229181 · Food Entity #431284<br/>
+    Contains &lt;0.3% Delta-9 THC · 2018 Hemp Farm Bill Compliant · ASTM D3475-20 · 21+ Only · Do Not Eat · Keep Out of Reach of Children
+  </p>
+</footer>
+
+<!-- TOAST -->
+<div id="toast" style="position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(80px);background:#1a4a22;color:#f5efe0;padding:.8rem 2rem;font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;border-radius:4px;z-index:9000;transition:transform .3s ease;pointer-events:none;white-space:nowrap;border:1px solid rgba(78,202,97,.3);"></div>
+
+<script>
+// Pending COA click
+function pending(e){
+  e.preventDefault();
+  const t=document.getElementById('toast');
+  t.textContent='Lab report coming soon — check back shortly!';
+  t.style.transform='translateX(-50%) translateY(0)';
+  setTimeout(()=>t.style.transform='translateX(-50%) translateY(80px)',2500);
+}
+
+// Scroll reveal
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){
+      setTimeout(()=>e.target.classList.add('vis'),i*120);
+      obs.unobserve(e.target);
+    }
+  });
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
+</script>
+</body>
+</html>

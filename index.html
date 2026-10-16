@@ -382,6 +382,69 @@ footer{background:var(--deep);border-top:1px solid rgba(201,168,76,.1);padding:4
 /* REVEAL */
 .reveal{opacity:0;transform:translateY(35px);transition:opacity .8s ease,transform .8s ease;}
 .reveal.vis{opacity:1;transform:translateY(0);}
+/* ================= RESPONSIVE ================= */
+/* Tablet: two-up grids */
+@media (max-width:1024px){
+  .prod-grid,.coa-grid{grid-template-columns:repeat(2,1fr);}
+  .fg{grid-template-columns:1fr 1fr;}
+  .story-inner{gap:3rem;}
+}
+/* Phone: single column, stacked controls */
+@media (max-width:768px){
+  /* Age gate — buttons stack so the gate never overflows the screen */
+  #agegate{padding:1.5rem;gap:1.3rem;}
+  .ag-logo{font-size:1.5rem;}
+  .ag-sub{font-size:.68rem;letter-spacing:.12em;line-height:1.6;}
+  .ag-btns{flex-direction:column;width:100%;max-width:320px;gap:.75rem;}
+  .ag-yes,.ag-no{width:100%;padding:.95rem 1rem;}
+  /* Nav — logo + cart on the first row, links on a second centered row */
+  nav{flex-wrap:wrap;gap:.6rem .8rem;padding:.8rem 1rem;}
+  .nav-logo{font-size:1.1rem;}
+  .nav-links{order:3;width:100%;justify-content:center;gap:1.1rem;}
+  .nav-links a{font-size:.58rem;letter-spacing:.12em;}
+  .nav-cart{padding:.5rem 1rem;font-size:.66rem;}
+  /* Smoke Points strip */
+  .sp-inner{flex-direction:column;align-items:stretch;gap:2rem;}
+  .sp-pillar{min-width:0;flex:1 1 calc(50% - .5rem);}
+  /* Shop */
+  #shop{padding:4rem 1.2rem;}
+  .tab-btn{padding:.85rem 1.3rem;font-size:.7rem;letter-spacing:.14em;}
+  .prod-grid{grid-template-columns:1fr;}
+  /* Product modal */
+  #moverlay{padding:1rem;}
+  .modal{grid-template-columns:1fr;max-height:92vh;}
+  .modal-vis{min-height:240px;}
+  .modal-info{padding:1.8rem 1.4rem;}
+  .modal-grid{grid-template-columns:1fr;}
+  /* Cart drawer fills the screen */
+  #cartdrawer{width:100%;right:-100%;padding:1.5rem;}
+  /* Story */
+  #story{padding:5rem 1.5rem;}
+  .story-inner{grid-template-columns:1fr;gap:3rem;}
+  .story-vis{height:340px;}
+  .hex{width:200px;height:200px;font-size:2rem;}
+  .sring:nth-child(1){width:230px;height:230px;}
+  .sring:nth-child(2){width:290px;height:290px;}
+  .sring:nth-child(3){width:340px;height:340px;}
+  /* Lab reports — one COA card per row, full-width buttons */
+  #lab-reports{padding:5rem 1.2rem;}
+  .lab-intro{margin-bottom:2.5rem;}
+  .lab-compliance-strip{flex-direction:column;align-items:flex-start;gap:.8rem;padding:1.2rem 1.4rem;margin-bottom:3rem;}
+  .coa-cat-header{flex-wrap:wrap;gap:.8rem;}
+  .coa-grid{grid-template-columns:1fr;gap:1.2rem;}
+  .coa-card-top{padding:1.6rem 1.4rem 1.2rem;}
+  .coa-card-bottom{padding:0 1.4rem 1.4rem;}
+  .coa-pdf-btn{padding:1rem;font-size:.7rem;}
+  .btn-lab-all{display:block;text-align:center;padding:1rem 1.5rem;}
+  /* Footer */
+  footer{padding:3rem 1.5rem 2rem;}
+  .fg{grid-template-columns:1fr;gap:2rem;}
+  .fg-b p{max-width:none;}
+  .fb{flex-direction:column;align-items:flex-start;}
+  /* Toast spans the screen width instead of centering on a fixed point */
+  #toast{left:1rem;right:1rem;transform:translateY(60px);text-align:center;white-space:normal;line-height:1.5;padding:.8rem 1.2rem;font-size:.66rem;letter-spacing:.12em;}
+  #toast.show{transform:translateY(0);}
+}
 </style>
 </head>
 <body>
